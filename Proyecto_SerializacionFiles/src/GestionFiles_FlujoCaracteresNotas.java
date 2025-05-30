@@ -9,7 +9,8 @@ import java.util.logging.Logger;
 public class GestionFiles_FlujoCaracteresNotas {
     public static void main(String[] args) {
         String notasXavier[][] = new String[6][3];
-        String notasXavierEntrada[][] = new String[6][3];
+        String notasXavierEntrada[][] = new String[notasXavier.length][3];
+        String resultados[][] = new String[notasXavier.length][2];
         generarNotas(notasXavier);
         persistirNotasFiles(notasXavier);
         lecturaNotasFiles(notasXavierEntrada);
@@ -48,6 +49,15 @@ public class GestionFiles_FlujoCaracteresNotas {
             objLecturaFile.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GestionFiles_FlujoCaracteresNotas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void calcularResultados(String resultados[][], String notasXavierEntrada[][]){
+        for (int i = 0; i < notasXavierEntrada.length; i++) {
+            resultados[i][0] = String.valueOf(
+                                                (  Double.parseDouble(notasXavierEntrada[i][1]) 
+                                                 + Double.parseDouble(notasXavierEntrada[i][2]) 
+                                                ) / 2
+                                             );
         }
     }
 }
