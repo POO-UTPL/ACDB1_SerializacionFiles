@@ -13,9 +13,9 @@ public class FlujoFiles_BasadosCaracteres {
         //FLUJO SALIDA: del .java al file
         try { //Gestion de errores = Programacion a la defensiva
             Formatter flujoPersistencia = new Formatter(new File("saludo.txt"));
-            flujoPersistencia.format("%s", "Que mas?");
-            flujoPersistencia.format("Suma: %.2f %.2f", 4.5, 9.1);
-            flujoPersistencia.format("Resta: %.2f %.2f", -7.2, 3.5);
+            flujoPersistencia.format("%s\n", "Que mas?");
+            flujoPersistencia.format("Suma: %.2f %.2f\n", 4.5, 9.1);
+            flujoPersistencia.format("Resta: %.2f %.2f\n", -7.2, 3.5);
             flujoPersistencia.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
