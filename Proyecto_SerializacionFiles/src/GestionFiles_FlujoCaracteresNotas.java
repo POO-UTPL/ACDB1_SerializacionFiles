@@ -44,8 +44,8 @@ public class GestionFiles_FlujoCaracteresNotas {
             while(objLecturaFile.hasNextLine()){
                 String materiaNotas[] = objLecturaFile.nextLine().split(";");
                 System.out.println(Arrays.toString(materiaNotas));
-            
             }
+            objLecturaFile.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GestionFiles_FlujoCaracteresNotas.class.getName()).log(Level.SEVERE, null, ex);
         }
