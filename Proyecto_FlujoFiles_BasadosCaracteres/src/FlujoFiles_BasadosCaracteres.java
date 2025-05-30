@@ -26,15 +26,27 @@ public class FlujoFiles_BasadosCaracteres {
         //FLUJO DE ENTRADA = Lectura: Del files al .java
         try {
             Scanner flujoLectura = new Scanner(new File("saludo.txt"));
-            flujoLectura.next();
+            String opera1 = flujoLectura.next();
             double num1 = flujoLectura.nextDouble();
             double num2 = flujoLectura.nextDouble();
             System.out.println(num1 + ", " + num2);
             
-            flujoLectura.next();
+            String opera2 = flujoLectura.next();
             double num3 = flujoLectura.nextDouble();
             double num4 = flujoLectura.nextDouble();
+            flujoLectura.close();
             System.out.println(num3 + ", " + num4);
+            
+            double suma = num1 + num2;
+            double resta = num3 - num4;
+            
+            Formatter flujoPersistenciaResultados = 
+                    new Formatter(new File("resultados.csv"));
+            flujoPersistenciaResultados.format("%s;%s;%s;%s;\n", "OPERACION", "NUMERO 1", "NUMERO 2", "RESULTADO");
+            flujoPersistenciaResultados.format("%s;%.2f;%.2f;%.2f;\n",opera1, num1, num2, suma);
+            flujoPersistenciaResultados.format("%s;%.2f;%.2f;%.2f;\n",opera2, num3, num4, resta);
+            flujoPersistenciaResultados.close();
+            
            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FlujoFiles_BasadosCaracteres.class.getName()).log(Level.SEVERE, null, ex);
