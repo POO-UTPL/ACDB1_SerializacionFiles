@@ -14,6 +14,7 @@ public class GestionFiles_FlujoCaracteresNotas {
         generarNotas(notasXavier);
         persistirNotasFiles(notasXavier);
         lecturaNotasFiles(notasXavierEntrada);
+        calcularResultados(resultados, notasXavierEntrada);
     }
     
     public static void generarNotas(String notas[][]){
@@ -53,11 +54,11 @@ public class GestionFiles_FlujoCaracteresNotas {
     }
     public static void calcularResultados(String resultados[][], String notasXavierEntrada[][]){
         for (int i = 0; i < notasXavierEntrada.length; i++) {
-            resultados[i][0] = String.valueOf(
-                                                (  Double.parseDouble(notasXavierEntrada[i][1]) 
-                                                 + Double.parseDouble(notasXavierEntrada[i][2]) 
-                                                ) / 2
-                                             );
+            double promedio = (  Double.parseDouble(notasXavierEntrada[i][1]) 
+                               + Double.parseDouble(notasXavierEntrada[i][2]) 
+                                                ) / 2;
+            //resultados[i][0] = String.valueOf(promedio);
+            //resultados[i][1] = (promedio >= 6.5 ) ? "APRO" : "REPRO" ;
         }
     }
 }
