@@ -15,12 +15,14 @@ public class GestionFiles_FlujoCaracteresNotas {
         generarNotas(notasXavier);
         persistirNotasFiles(notasXavier);
         lecturaNotasFiles(notasXavierEntrada);
-        calcularResultados(resultados, notasXavierEntrada);
+        calcularResultados(notasXavierEntrada, resultados);
+        persistirResultados(notasXavierEntrada, resultados);
     }
     
     public static void generarNotas(String notas[][]){
         Random ale = new Random();
-        // ValorAletorio      * (max-1 - min +1) + min
+        // random.nextInt(max - min + 1) + min;         //Formula para generar aleatorios enteros
+        // ValorAletorio      * (max-1 - min +1) + min  //Formula para generar aleatorios reales
         for (int i = 0; i < notas.length; i++) {
             String nombreMateria = "Materia_" + (i+1);
             double notaB1 = ale.nextDouble() * (9 - 0 +1) + 0;
@@ -32,7 +34,7 @@ public class GestionFiles_FlujoCaracteresNotas {
     }
     public static void persistirNotasFiles(String notas[][]){
         try {
-            Formatter objPersistenciaFile = new Formatter(new File("notasEntrada.csv"));
+            Formatter objPersistenciaFile = new Formatter(new File("notitasCheveresEntrada.csv"));
             for (int i = 0; i < notas.length; i++) {
                 objPersistenciaFile.format("%s;%s;%s;\n", notas[i][0], notas[i][1], notas[i][2]);
             }
@@ -43,7 +45,7 @@ public class GestionFiles_FlujoCaracteresNotas {
     }
     public static void lecturaNotasFiles(String notasLeidas[][]){
         try {
-            Scanner objLecturaFile = new Scanner(new File("notasEntrada.csv"));
+            Scanner objLecturaFile = new Scanner(new File("notitasCheveresEntrada.csv"));
             //objLecturaFile.useLocale(Locale.US);
             int i = 0;
             while(objLecturaFile.hasNextLine()){
@@ -52,24 +54,36 @@ public class GestionFiles_FlujoCaracteresNotas {
                 notasLeidas[i][1] = materiaNotas[1];
                 notasLeidas[i][2] = materiaNotas[2];
                 i++;
-                System.out.println(Arrays.toString(materiaNotas));
             }
             objLecturaFile.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GestionFiles_FlujoCaracteresNotas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void calcularResultados(String resultados[][], String notasXavierEntrada[][]){
-        double nota1B1 = 0, nota2B1 = 0, promedio = 0;
+    public static void calcularResultados(String notasXavierEntrada[][], String resultados[][]){
+        double notaB1 = 0, notaB2 = 0, promedio = 0;
         for (int i = 0; i < notasXavierEntrada.length; i++) {
-            nota1B1 = Double.parseDouble(notasXavierEntrada[i][1]);
-            nota2B1 = Double.parseDouble(notasXavierEntrada[i][1]);
-            promedio = (nota1B1 + nota2B1) / 2;
+            notaB1 = Double.parseDouble(notasXavierEntrada[i][1]);
+            notaB2 = Double.parseDouble(notasXavierEntrada[i][2]);
+            promedio = (notaB1 + notaB2) / 2;
             resultados[i][0] = String.valueOf(promedio);
             resultados[i][1] = (promedio >= 6.5 ) ? "APRO" : "REPRO" ;
         }
     }
-    public static void escribirResultados(){
-        
+    public static void persistirResultados(String notasXavierEntrada[][], String resultados[][]){
+        try {
+            Formatter objPersistenciaFile = new Formatter(new File("matrizNotasXavierResultados.csv"));
+            for (int i = 0; i < resultados.length; i++) {
+                objPersistenciaFile.format("%s;%s;%s;%s;%s;\n", 
+                                               notasXavierEntrada[i][0], 
+                                               notasXavierEntrada[i][1],
+                                               notasXavierEntrada[i][2],
+                                               resultados[i][0],
+                                               resultados[i][1]);
+            }
+            objPersistenciaFile.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GestionFiles_FlujoCaracteresNotas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
