@@ -32,10 +32,11 @@ public class EjecutorSerializacionNotas {
                 listaResultados.add(estudiante);
             }
         } catch (EOFException finArchivo) {
-            System.out.println(finArchivo.getMessage());
+            System.out.println("Fin de archivo");
         } catch (Exception e) {
         }
-        
+        for(Estudiante est : listaResultados)
+            System.out.println(est);
     }
 }
 class Estudiante implements Serializable{
