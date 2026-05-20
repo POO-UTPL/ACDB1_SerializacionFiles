@@ -15,8 +15,13 @@ public class ControllerAsignatura {
     public void calcularPromedios(){
         asignaturas = asignaturaDAO.leerAsignaturas();
         for(Asignatura asig : asignaturas){
+            asig.setPromd( (asig.getB1() + asig.getB2()) / 2 );
+        }
+        
+        for(Asignatura asig : asignaturas){
             System.out.println(asig);
         }
+        
     }
     
 }

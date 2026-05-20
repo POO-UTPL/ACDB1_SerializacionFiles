@@ -10,7 +10,6 @@ public class ControladorAsignatura {
     public void generarParcial(){
         asignaturas = asigDAO.leerAsignaturas();
         for (Asignatura asig : asignaturas) {
-            System.out.println(asig);
         }
     }
 }
