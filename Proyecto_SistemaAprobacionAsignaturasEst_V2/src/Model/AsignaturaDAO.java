@@ -34,9 +34,4 @@ public class AsignaturaDAO {
         fin.close();
         return asignaturas;
     }
-    public static void main(String[] args) {
-                                             //  "//src/DB/DB_EstAsigs.csv"
-        AsignaturaDAO objAsig = new AsignaturaDAO("src/DB/DB_EstAsigs.csv");
-        System.out.println(objAsig.leerAsignaturas());
-    }
 }
