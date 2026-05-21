@@ -2,6 +2,7 @@ package Model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class AsignaturaDAO {
@@ -11,6 +12,7 @@ public class AsignaturaDAO {
 
     public AsignaturaDAO(String nombreArchivoInNotas) {
         this.nombreArchivoInNotas = nombreArchivoInNotas;
+        this.asignaturas = new ArrayList<Asignatura>();
     }
     
     public void crearFin(){
@@ -24,12 +26,16 @@ public class AsignaturaDAO {
     public ArrayList<Asignatura> leerAsignaturas(){
         crearFin();
         String linea = fin.nextLine();
-        System.out.println(linea);
+        while(fin.hasNext()){
+            linea = fin.nextLine();
+            String valores[] = linea.split(";");
+            Asignatura asig = new Asignatura(
+                                            valores[2],
+                                            Double.parseDouble(valores[3]),
+                                            Double.parseDouble(valores[4])
+                                            );
+            this.asignaturas.add(asig);
+        }
         return asignaturas;
-    }
-    
-    public static void main(String[] args) {
-        AsignaturaDAO asigDAO = new AsignaturaDAO("src/DB/NotasIn.csv");
-        asigDAO.leerAsignaturas();
     }
 }
